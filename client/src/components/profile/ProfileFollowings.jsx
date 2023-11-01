@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const ProfileFollowings = () => {
@@ -16,7 +16,7 @@ const ProfileFollowings = () => {
       .get(`/api/${user_id}/${id}/allFollowings`, { signal })
       .then((res) => res.data)
   );
-
+  console.log(followingsQuery.data);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -59,7 +59,7 @@ const ProfileFollowings = () => {
     unfollowMutation.mutate(id);
   };
 
-  if (followingsQuery.data.length == 0)
+  if (followingsQuery?.data?.length == 0)
     return (
       <p className="text-center mt-4 text-lg text-slate-500 font-bold">
         You have 0 followings
@@ -92,14 +92,22 @@ const ProfileFollowings = () => {
                     <th className="flex  items-center gap-3 px-6 py-4 font-normal text-gray-900">
                       <div className="relative h-10 w-10">
                         <img
-                          className="h-full w-full rounded-full object-cover object-center"
-                          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
+                          src={
+                            item.profilepic ||
+                            'https://cdn-icons-png.flaticon.com/128/3899/3899618.png'
+                          }
+                          loading="lazy"
+                          alt="Photo by Aiony Haust"
+                          className="h-full w-full rounded-full object-cover
+                        object-center"
                         />
-                        <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
+
+                        {/* <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> */}
                       </div>
                       <div className="text-base font-medium text-gray-700">
-                        {item?.name}
+                        <Link to={`/profile/${item.user_id}`}>
+                          {item?.name}
+                        </Link>
                       </div>
                     </th>
 
@@ -108,7 +116,9 @@ const ProfileFollowings = () => {
                       <div className="flex gap-2">
                         {item?.isfollowed == 1 ? (
                           <button
-                            onClick={() => handleUnFollow(item?.user_id)}
+                            onClick={() =>
+                              handleUnFollow(item?.followed_user_id)
+                            }
                             type="button"
                             className="w-24 rounded-lg border border-red-500 bg-red-500 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300"
                           >

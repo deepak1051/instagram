@@ -81,7 +81,7 @@ const Home = () => {
                               <img
                                 src={
                                   blog.profilepic ||
-                                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&q=75&fit=crop&w=64'
+                                  'https://cdn-icons-png.flaticon.com/128/3899/3899618.png'
                                 }
                                 loading="lazy"
                                 alt="Photo by Aiony Haust"

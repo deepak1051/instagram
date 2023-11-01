@@ -7,8 +7,8 @@ import { setCredentials } from '../store';
 import { useDispatch } from 'react-redux';
 
 const Login = () => {
-  const [email, setEmail] = useState('a@gmail.com');
-  const [password, setPassword] = useState('a');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,6 +61,8 @@ const Login = () => {
                 Email
               </label>
               <input
+                placeholder="Email"
+                type="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 name="email"
@@ -76,6 +78,7 @@ const Login = () => {
                 Password
               </label>
               <input
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"

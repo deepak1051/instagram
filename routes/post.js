@@ -50,13 +50,29 @@ router.get('/posts/:id', auth, async (req, res) => {
 });
 
 // delete a post
-router.delete('/posts/:id', auth, async (req, res) => {
+router.delete('/posts/:post_id', auth, async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await pool.query(`DELETE FROM posts WHERE id=$1`, [id]);
+    const { post_id } = req.params;
+    const { user_id } = req.user;
+
+    const post_user_id = await pool.query(
+      `SELECT user_id from posts WHERE post_id=$1`,
+      [post_id]
+    );
+
+    if (post_user_id.rows[0].user_id != user_id) {
+      return res
+        .status(404)
+        .json('You are not authorized to delete other users post');
+    }
+
+    const result = await pool.query(
+      `DELETE FROM posts WHERE post_id=$1 RETURNING *`,
+      [post_id]
+    );
     if (!result.rowCount)
       return res.status(404).send({ message: 'No Post found' });
-    else return res.status(200).send({ message: 'Deleted Successfully!' });
+    return res.status(200).send({ message: 'Deleted Successfully!' });
   } catch (err) {
     res.status(404).json(err.message);
   }

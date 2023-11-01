@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const ProfileFollowers = () => {
@@ -55,8 +55,8 @@ const ProfileFollowers = () => {
   const handleUnFollow = (id) => {
     unfollowMutation.mutate(id);
   };
-
-  if (followersQuery.data.length == 0)
+  console.log(followersQuery.data);
+  if (followersQuery?.data?.length == 0)
     return (
       <p className="text-center mt-4 text-lg text-slate-500 font-bold">
         You have 0 followers
@@ -90,14 +90,21 @@ const ProfileFollowers = () => {
                     <th className="flex  items-center gap-3 px-6 py-4 font-normal text-gray-900">
                       <div className="relative h-10 w-10">
                         <img
-                          className="h-full w-full rounded-full object-cover object-center"
-                          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
+                          src={
+                            item.profilepic ||
+                            'https://cdn-icons-png.flaticon.com/128/3899/3899618.png'
+                          }
+                          loading="lazy"
+                          alt="Photo by Aiony Haust"
+                          className="h-full w-full rounded-full object-cover
+                        object-center"
                         />
-                        <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
+                        {/* <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> */}
                       </div>
                       <div className="text-base font-medium text-gray-700">
-                        {item?.name}
+                        <Link to={`/profile/${item.user_id}`}>
+                          {item?.name}
+                        </Link>
                       </div>
                     </th>
 

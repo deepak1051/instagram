@@ -37,13 +37,13 @@ router.get('/:user_id/:id/allFollowings', auth, async (req, res) => {
   let { user_id, id } = req.params;
   try {
     const result = await pool.query(
-      `SELECT *,2 AS isFollowed FROM follow INNER JOIN users ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id = $1
+      `SELECT *,2 AS isFollowed FROM users INNER JOIN  follow ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id = $1
       UNION ALL
-      SELECT *,1 AS isFollowed FROM follow INNER JOIN users ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id != $1 
+      SELECT *,1 AS isFollowed FROM users INNER JOIN  follow ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id != $1 
       AND 
       users.user_id IN (SELECT followed_user_id FROM follow WHERE follow.user_id=$1) 
       UNION ALL
-      SELECT *,0 AS isFollowed FROM follow INNER JOIN users ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id != $1 
+      SELECT *,0 AS isFollowed FROM users INNER JOIN  follow ON follow.followed_user_id=users.user_id WHERE follow.user_id=$2 AND users.user_id != $1 
       AND 
       users.user_id NOT IN (SELECT followed_user_id FROM follow WHERE follow.user_id=$1) 
       `,

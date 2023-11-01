@@ -197,6 +197,14 @@ const Model = ({ onClose, ActionBar }) => {
 
           <div className="flex justify-end">
             <button
+              onClick={onClose}
+              className="flex items-center  justify-center gap-2 rounded-lg border border-red-300 px-8 py-3 text-center text-sm font-semibold  outline-none ring-gray-300 transition duration-100  focus-visible:ring active:bg-gray-200 md:text-base cursor-pointer
+              bg-red-700 text-white
+              "
+            >
+              Cancel
+            </button>
+            <button
               onClick={handleSubmit}
               disabled={imageLoading}
               className="flex items-center  justify-center gap-2 rounded-lg border border-gray-300 px-8 py-3 text-center text-sm font-semibold  outline-none ring-gray-300 transition duration-100  focus-visible:ring active:bg-gray-200 md:text-base cursor-pointer
