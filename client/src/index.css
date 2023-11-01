@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.replay-comment-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid lightgray;
+  outline: none;
+  background-color: rgb(220, 220, 220);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.flow-table::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.gray-opacity {
+  background-color: lightgray;
+}
+
+/* profile */
+.seagreen {
+  background-color: rgb(208, 227, 35);
+}
+
+.color-container {
+  position: absolute;
+  top: 400px;
+}
