@@ -49,6 +49,20 @@ router.get('/posts/:id', auth, async (req, res) => {
   }
 });
 
+// get all posts from my followings/ my feed
+router.get('/myFeed', auth, async (req, res) => {
+  try {
+    const { user_id } = req.user;
+    const response = await pool.query(
+      'SELECT * FROM posts INNER JOIN users  ON posts.user_id=users.user_id WHERE users.user_id IN (select followed_user_id from follow where user_id=$1)',
+      [user_id]
+    );
+    res.json(response.rows);
+  } catch (err) {
+    res.status(404).json(err.message);
+  }
+});
+
 // delete a post
 router.delete('/posts/:post_id', auth, async (req, res) => {
   try {

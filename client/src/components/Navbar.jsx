@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 const _className =
-  'text-lg font-semibold   hover:text-indigo-500 active:text-indigo-700';
+  'text-lg font-semibold   hover:text-gray-700 active:text-indigo-700';
 
 const Navbar = () => {
   const { userDetail } = useSelector((state) => state.auth);
@@ -58,7 +58,7 @@ const Navbar = () => {
     <div>
       <div className={`bg-teal-600`}>
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-          <header className="mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16">
+          <header className="flex items-center justify-between py-4  md:py-8 ">
             <Link
               to="/"
               className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl"
@@ -68,22 +68,21 @@ const Navbar = () => {
                 width="95"
                 height="94"
                 viewBox="0 0 95 94"
-                className="h-auto w-6 text-indigo-500"
+                className="h-auto w-6 text-gray-700"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
               </svg>
-              Light Blog
+              Instagram
             </Link>
-            {/* text-indigo-500 */}
             {userDetail && (
               <nav className="hidden gap-12 lg:flex">
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? `${_className} text-indigo-500`
+                      ? `${_className} text-gray-700`
                       : `${_className} text-white`
                   }
                 >
@@ -93,7 +92,7 @@ const Navbar = () => {
                   to={`/${userDetail?.user_id}/myFeed`}
                   className={({ isActive }) =>
                     isActive
-                      ? `${_className} text-indigo-500`
+                      ? `${_className} text-gray-700`
                       : `${_className} text-white`
                   }
                 >
@@ -103,7 +102,7 @@ const Navbar = () => {
                   to="/createPost"
                   className={({ isActive }) =>
                     isActive
-                      ? `${_className} text-indigo-500`
+                      ? `${_className} text-gray-700`
                       : `${_className} text-white`
                   }
                 >
@@ -114,7 +113,7 @@ const Navbar = () => {
                   to={`/profile/${userDetail?.user_id}`}
                   className={({ isActive }) =>
                     isActive
-                      ? `${_className} text-indigo-500`
+                      ? `${_className} text-gray-700`
                       : `${_className} text-white`
                   }
                 >
@@ -124,7 +123,7 @@ const Navbar = () => {
                   to={`/${userDetail?.user_id}/allUsers`}
                   className={({ isActive }) =>
                     isActive
-                      ? `${_className} text-indigo-500`
+                      ? `${_className} text-gray-700`
                       : `${_className} text-white`
                   }
                 >
