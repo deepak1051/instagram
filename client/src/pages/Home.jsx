@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { formatDistance } from 'date-fns';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { formatDistance } from "date-fns";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const blogsQuery = useQuery(['users', 'blogs'], ({ signal }) =>
+  const blogsQuery = useQuery(["users", "blogs"], ({ signal }) =>
     axios.get(`/api/posts`, { signal }).then((res) => res.data)
   );
 
@@ -58,7 +58,7 @@ const Home = () => {
                           <img
                             src={
                               blog.profilepic ||
-                              'https://cdn-icons-png.flaticon.com/128/3899/3899618.png'
+                              "https://cdn-icons-png.flaticon.com/128/3899/3899618.png"
                             }
                             loading="lazy"
                             alt="Photo by Aiony Haust"
@@ -83,10 +83,6 @@ const Home = () => {
                           </span>
                         </div>
                       </div>
-
-                      {/* <span className="rounded border px-2 py-1 text-sm text-gray-500">
-                            Article
-                          </span> */}
                     </div>
                   </div>
                 </div>
