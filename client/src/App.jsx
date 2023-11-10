@@ -1,44 +1,44 @@
-import Home from './pages/Home';
-import Signup from './pages/Signup';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
-import CreatePost from './pages/CreatePost';
-import SinglePost from './pages/SinglePost';
-import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import ProfileLayout from './components/profile/ProfileLayout';
-import ProfilePosts from './components/profile/ProfilePosts';
-import ProfileFollowers from './components/profile/ProfileFollowers';
-import ProfileFollowings from './components/profile/ProfileFollowings';
-import AllUsers from './pages/AllUsers';
-import MyFeed from './pages/MyFeed';
+import CreatePost from "./pages/CreatePost";
+import SinglePost from "./pages/SinglePost";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import ProfileLayout from "./components/profile/ProfileLayout";
+import ProfilePosts from "./components/profile/ProfilePosts";
+import ProfileFollowers from "./components/profile/ProfileFollowers";
+import ProfileFollowings from "./components/profile/ProfileFollowings";
+import AllUsers from "./pages/AllUsers";
+import MyFeed from "./pages/MyFeed";
 
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
-import { setCredentials } from './store';
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { setCredentials } from "./store";
 
 const App = () => {
-  // const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
-  // console.log(userInfo);
+  console.log(userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const authUserQuery = useQuery(
-    ['auth'],
+    ["auth"],
     ({ signal }) =>
       axios
         .get(`/api/me`, { withCredentials: true, signal })
         .then((res) => res.data),
     {
       onSuccess(data) {
-        console.log('innn');
+        console.log("innn");
         dispatch(setCredentials(data));
       },
       onError() {
-        console.log('error');
-        navigate('/login');
+        console.log("error");
+        navigate("/login");
       },
       retry: 0,
     }
