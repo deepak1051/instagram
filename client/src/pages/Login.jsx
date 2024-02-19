@@ -93,7 +93,7 @@ const Login = () => {
               Log in
             </button>
 
-            <div className="relative flex items-center justify-center">
+            {/* <div className="relative flex items-center justify-center">
               <span className="absolute inset-x-0 h-px bg-gray-300"></span>
               <span className="relative bg-white px-4 text-sm text-gray-400">
                 Log in with social
@@ -150,7 +150,7 @@ const Login = () => {
                 />
               </svg>
               Continue with Google
-            </button>
+            </button> */}
           </div>
 
           <div className="flex items-center justify-center bg-gray-100 p-4">

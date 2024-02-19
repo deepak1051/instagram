@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.status(400).json('Please add email and password');
+      return res.status(400).json('Please add email and password');
     }
 
     const user = await pool.query('SELECT * FROM users WHERE email=$1 ', [
