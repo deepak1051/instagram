@@ -1,27 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { clearCredentials } from '../store';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { clearCredentials } from "../store";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { RxCross1 } from "react-icons/rx";
+import { useState } from "react";
 
 const _className =
-  'text-lg font-semibold   hover:text-gray-700 active:text-indigo-700';
+  "text-lg font-semibold   hover:text-gray-700 active:text-indigo-700";
 
 const Navbar = () => {
   const { userDetail } = useSelector((state) => state.auth);
+  const [hamburgerFlag, sethamburgerFlag] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { refetch } = useQuery(
-    ['logout'],
+    ["logout"],
     () => axios.get(`/api/logout`).then((res) => res.data),
     {
       retry: 0,
       enabled: false,
       onSuccess() {
         dispatch(clearCredentials());
-
-        navigate('/login');
+        navigate("/login");
       },
       onError(error) {
         toast(error.response.data || error.message);
@@ -32,6 +35,10 @@ const Navbar = () => {
   const handleLogout = async () => {
     refetch();
   };
+
+  function toggleHamBurger() {
+    sethamburgerFlag(!hamburgerFlag);
+  }
 
   let content;
   if (!userDetail) {
@@ -68,12 +75,73 @@ const Navbar = () => {
                 width="95"
                 height="94"
                 viewBox="0 0 95 94"
-                className="h-auto w-6 text-gray-700"
+                className="h-auto w-6 text-gray-700 hidden lg:flex"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
               </svg>
+              <div className="lg:hidden">
+                {!hamburgerFlag && (
+                  <RxHamburgerMenu onClick={toggleHamBurger} />
+                )}
+                {hamburgerFlag && <RxCross1 onClick={toggleHamBurger} />}
+                {userDetail && hamburgerFlag && (
+                  <nav className="flex flex-col gap-2 lg:hidden mt-4 ">
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${_className} text-gray-700`
+                          : `${_className} text-white`
+                      }
+                    >
+                      Home
+                    </NavLink>
+                    <NavLink
+                      to={`/${userDetail?.user_id}/myFeed`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${_className} text-gray-700`
+                          : `${_className} text-white`
+                      }
+                    >
+                      My Feed
+                    </NavLink>
+                    <NavLink
+                      to="/createPost"
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${_className} text-gray-700`
+                          : `${_className} text-white`
+                      }
+                    >
+                      Create Blog
+                    </NavLink>
+
+                    <NavLink
+                      to={`/profile/${userDetail?.user_id}`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${_className} text-gray-700`
+                          : `${_className} text-white`
+                      }
+                    >
+                      Profile
+                    </NavLink>
+                    <NavLink
+                      to={`/${userDetail?.user_id}/allUsers`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${_className} text-gray-700`
+                          : `${_className} text-white`
+                      }
+                    >
+                      All Users
+                    </NavLink>
+                  </nav>
+                )}
+              </div>
               Instagram
             </Link>
             {userDetail && (
